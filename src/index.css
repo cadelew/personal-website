@@ -1,0 +1,330 @@
+/* ---------- Base reset ---------- */
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; margin: 0; }
+body {
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: #fff;
+  color: #0f172a;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* ---------- HERO LAYOUT ---------- */
+.hero-container {
+  position: relative;
+  height: 100vh;
+  min-height: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* ---------- SKY & SUN ---------- */
+/* Palette inspired by Endless Summer poster*/
+:root{
+  --sky-top: #FF6B9D;     /*  pink */
+  --sky-mid: #FF8E53;     /*  orange */
+  --sky-bottom: #FFD700;  /* golden yellow */
+  --sun: #FF4500;         /* bright orange-red */
+  --wave-a: #FF1493;      /* deep pink */
+  --wave-b: #FF6347;      /* tomato red */
+  --wave-c: #FF8C00;      /* dark orange */
+  --wave-d: #FFA500;      /* orange */
+  --wave-e: #FFB347;      /* peach */
+  --wave-f: #FFD700;      /* gold */
+  --silhouette: #8B0000;  /* dark red for depth */
+}
+
+/* full-screen gradient sky - The Endless Summer colors */
+.sky {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(180deg, var(--sky-top) 0%, var(--sky-mid) 50%, var(--sky-bottom) 100%);
+  transition: background 600ms ease;
+}
+
+/* centered sun - bright The Endless Summer orange */
+.sun {
+  position: absolute;
+  left: 50%;
+  top: 60vh;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, rgba(255,255,255,0.6), rgba(255,255,255,0) 15%),
+              radial-gradient(circle at 50% 50%, rgba(255,69,0,1), rgba(255,140,0,0.95) 60%, rgba(255,165,0,0.9));
+  box-shadow: 0 0 80px rgba(255,69,0,0.4), 0 12px 50px rgba(255,140,0,0.2) inset;
+  filter: saturate(1.1);
+  z-index: 2; /* behind waves (waves will be z=3+) */
+  opacity: 1;
+  animation: sunPulse 8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* pulsing */
+@keyframes sunPulse {
+  0% { transform: translate(-50%, -50%) scale(1); filter: blur(0px); }
+  50% { transform: translate(-50%, -50%) scale(1.02); filter: blur(0.4px); }
+  100% { transform: translate(-50%, -50%) scale(1); filter: blur(0px); }
+}
+
+/* ---------- TITLE ---------- */
+.hero-title {
+  position: relative;
+  z-index: 10;
+  margin: 0;
+  color: #051826;
+  font-size: clamp(2.4rem, 6vw, 4rem);
+  letter-spacing: 0.02em;
+  font-weight: 700;
+  text-align: center;
+  text-shadow: 0 6px 24px rgba(5,24,38,0.06);
+  animation: floatText 5s ease-in-out infinite;
+  user-select: none;
+  white-space: nowrap; /* Keep name on one line */
+}
+
+.hero-subtitle {
+  position: relative;
+  z-index: 10;
+  margin: 0;
+  color: #051826;
+  font-size: clamp(1.2rem, 3vw, 2rem);
+}
+/* gentle vertical float for the name */
+@keyframes floatText {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(0); }
+}
+
+/* ---------- SOCIAL BUTTONS ---------- */
+.social-buttons {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+  width: 100%;
+  flex-wrap: nowrap; /* Keep all buttons in one line */
+}
+
+.social-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.5rem;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50px;
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.social-button:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.social-button svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+/* Brand-specific hover colors */
+.social-button.linkedin:hover {
+  background: rgba(0, 119, 181, 0.3);
+  border-color: rgba(0, 119, 181, 0.5);
+}
+
+.social-button.resume:hover {
+  background: rgba(52, 168, 83, 0.3);
+  border-color: rgba(52, 168, 83, 0.5);
+}
+
+.social-button.github:hover {
+  background: rgba(0, 0, 0, 0.3);
+  border-color: rgba(0, 0, 0, 0.5);
+}
+
+.social-button.gmail:hover {
+  background: rgba(234, 67, 53, 0.3);
+  border-color: rgba(234, 67, 53, 0.5);
+}
+
+/* gentle vertical float for the name */
+@keyframes floatText {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(0); }
+}
+
+/* ---------- WAVES (bottom 70% of viewport) ---------- */
+.waves {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 70vh;               /* waves take bottom 70% */
+  z-index: 3;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* common wave properties */
+.wave {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 200%;   /* wide so translateX creates nice loop */
+  height: 120%;
+  background-repeat: repeat-x;
+  background-size: 50% 100%;
+  transform: translate3d(0,0,0);
+  will-change: transform;
+  opacity: 0.95;
+  mix-blend-mode: normal;
+}
+
+/* back wave layer (gold) - deepest */
+.wave-back {
+  z-index: 4;
+  bottom: 2vh;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 220'><path fill='%23FFD700' d='M0,130 C250,160 450,100 600,130 C750,160 950,100 1200,130 L1200,220 L0,220 Z'></path></svg>");
+  opacity: 1;
+  animation: waveMove6 30s linear infinite;
+}
+
+/* mid-back wave layer (peach) */
+.wave-mid-back {
+  z-index: 5;
+  bottom: -3vh;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 220'><path fill='%23FFB347' d='M0,120 C200,150 400,90 600,120 C800,150 1000,90 1200,120 L1200,220 L0,220 Z'></path></svg>");
+  opacity: 1;
+  animation: waveMove5 25s linear infinite reverse;
+}
+
+/* mid wave layer (orange) */
+.wave-mid {
+  z-index: 6;
+  bottom: -8vh;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 220'><path fill='%23FFA500' d='M0,110 C200,140 400,80 600,110 C800,140 1000,80 1200,110 L1200,220 L0,220 Z'></path></svg>");
+  opacity: 1;
+  animation: waveMove4 22s linear infinite;
+}
+
+/* mid-front wave layer (dark orange) */
+.wave-mid-front {
+  z-index: 7;
+  bottom: -15vh;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 200'><path fill='%23FF8C00' d='M0,100 C150,130 350,80 600,100 C850,120 1050,80 1200,100 L1200,200 L0,200 Z'></path></svg>");
+  opacity: 1;
+  animation: waveMove3 18s linear infinite reverse;
+}
+
+/* front wave layer (tomato red) */
+.wave-front {
+  z-index: 8;
+  bottom: -25vh;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 200'><path fill='%23FF6347' d='M0,90 C150,120 350,70 600,90 C850,110 1050,70 1200,90 L1200,200 L0,200 Z'></path></svg>");
+  opacity: 1;
+  animation: waveMove2 16s linear infinite;
+}
+
+/* top wave layer (deep pink) - completely hides sun */
+.wave-top {
+  z-index: 9;
+  bottom: -35vh;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 200'><path fill='%23FF1493' d='M0,80 C150,110 350,60 600,80 C850,100 1050,60 1200,80 L1200,200 L0,200 Z'></path></svg>");
+  opacity: 1;
+  animation: waveMove1 14s linear infinite;
+  filter: blur(0.2px);
+}
+
+/* wave translations for looping motion */
+@keyframes waveMove1 {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@keyframes waveMove2 {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-45%); }
+}
+@keyframes waveMove3 {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-40%); }
+}
+@keyframes waveMove4 {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-35%); }
+}
+@keyframes waveMove5 {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-30%); }
+}
+@keyframes waveMove6 {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-25%); }
+}
+
+/* ---------- small responsive tweaks ---------- */
+@media (max-width: 640px) {
+  .sun { width: 300px; height: 300px; }
+  .hero-title { font-size: 2.4rem; }
+  .wave { background-size: 75% 100%; }
+  
+  .social-buttons {
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+  
+  .social-button {
+    padding: 0.75rem 1.25rem;
+    font-size: 0.9rem;
+  }
+  
+  .social-button svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .social-buttons {
+    gap: 0.75rem;
+    flex-wrap: nowrap; /* Still keep in one line */
+  }
+  
+  .social-button {
+    padding: 0.6rem 1rem;
+    font-size: 0.8rem;
+  }
+  
+  .social-button svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+/* ---------- CONTENT (example) ---------- */
+.content {
+  background: white;
+  color: #0f172a;
+  position: relative;
+  z-index: 1;
+}
