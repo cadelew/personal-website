@@ -20,7 +20,7 @@ export default function Hero() {
           </svg>
           LinkedIn
         </a>
-        <a href="https://drive.google.com/file/d/1xAub3yhkkBydP9CntIoCGiHYOsdDDa4k/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="social-button resume">
+        <a href="https://drive.google.com/file/d/1UMKaVD140MGN-hLr8KxADLO4xpwYLmc-/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="social-button resume">
           <svg viewBox="0 0 24 24" fill="currentColor">
             <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
           </svg>
